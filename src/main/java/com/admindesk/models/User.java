@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
       @UniqueConstraint(columnNames = "email") 
     })
 public class User {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

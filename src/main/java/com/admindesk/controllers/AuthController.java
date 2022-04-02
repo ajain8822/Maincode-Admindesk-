@@ -18,6 +18,7 @@ import com.admindesk.repository.RoleRepository;
 import com.admindesk.repository.UserRepository;
 import com.admindesk.security.jwt.JwtUtils;
 import com.admindesk.security.services.UserDetailsImpl;
+import com.admindesk.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,6 +47,9 @@ public class AuthController {
 
   @Autowired
   JwtUtils jwtUtils;
+
+  @Autowired
+  UserDetailsServiceImpl userDetailsService;
 
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -128,5 +132,27 @@ public class AuthController {
     @GetMapping("/showusers")
   public List<User> getAllEmployee(){
     return  userRepository.findAll();
+
+
   }
-}
+ @PostMapping("/update-user/{id}")
+  public ResponseEntity<User> updateEmployee(@PathVariable long id , @RequestBody User user) {
+  User employee = userDetailsService.updateEmployee(id,user);
+  userRepository.save(employee);
+  return ResponseEntity.ok(employee);
+
+ }
+ @PostMapping("/delete-user/{id}")
+  public ResponseEntity<User> deleteEmployee(@PathVariable long id ) {
+   User employee = userRepository.findById(id).get();
+   userRepository.delete(employee);
+   return ResponseEntity.ok(employee);
+ }
+ }
+
+
+
+
+
+
+
