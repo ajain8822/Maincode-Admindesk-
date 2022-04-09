@@ -64,6 +64,12 @@ public class User {
   @NotBlank
   @Size
   private String lastname;
+
+  private String mstatus;
+
+  private String bloodGroup;
+
+
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(  name = "user_roles", 
         joinColumns = @JoinColumn(name = "user_id"), 
@@ -73,7 +79,7 @@ public class User {
   public User() {
   }
 
-  public User(String firstname , String lastname , String username, String email, String password , String employeeId, String designation,   String contact ,  String gender , Date dateOfJoining, String address ,String city ,  String state) {
+  public User(String firstname , String lastname , String username, String email, String password , String employeeId, String designation,   String contact ,  String gender , Date dateOfJoining, String address ,String city ,  String state , String mstatus, String bloodGroup) {
     this.username = username;
     this.email = email;
     this.password = password;
@@ -87,6 +93,8 @@ public class User {
     this.dateOfJoining=dateOfJoining;
     this.firstname=firstname;
     this.lastname=lastname;
+    this.mstatus=mstatus;
+    this.bloodGroup=bloodGroup;
   }
 
   public Long getId() {
@@ -164,6 +172,14 @@ public class User {
   public String  getLastname(){ return lastname;}
 
   public  void setLastname(String lastname){ this.lastname=lastname;}
+
+  public String  getMstatus(){ return mstatus;}
+
+  public  void setMstatus(String status){ this.mstatus=mstatus;}
+
+  public String  getBloodGroup(){ return bloodGroup;}
+
+  public  void setBloodGroup(String bloodGroup){ this.bloodGroup=bloodGroup;}
 
 
 

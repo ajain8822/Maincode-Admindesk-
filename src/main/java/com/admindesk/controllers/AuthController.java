@@ -90,7 +90,7 @@ public class AuthController {
     User user = new User(signUpRequest.getFirstname(),signUpRequest.getLastname(),signUpRequest.getUsername(),signUpRequest.getEmail(),encoder.encode(signUpRequest.getPassword()),
             signUpRequest.getEmployeeId(),signUpRequest.getDesignation(),signUpRequest.getContact(),
             signUpRequest.getGender(),signUpRequest.getDateOfJoining(),signUpRequest.getAddress(),
-            signUpRequest.getCity(),signUpRequest.getState());
+            signUpRequest.getCity(),signUpRequest.getState(),signUpRequest.getMstatus(),signUpRequest.getBloodGroup());
 
     Set<String> strRoles = signUpRequest.getRole();
 
@@ -148,6 +148,7 @@ public class AuthController {
    userRepository.delete(employee);
    return ResponseEntity.ok(employee);
  }
+
  }
 
 

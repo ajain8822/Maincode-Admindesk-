@@ -30,6 +30,10 @@ public class SignupRequest {
 
   private Date dateOfJoining;
 
+  private String mstatus;
+
+  private String bloodGroup;
+
   public String getUsername() {
     return username;
   }
@@ -105,6 +109,15 @@ public class SignupRequest {
   public String  getLastname(){ return lastname;}
 
   public  void setLastname(String lastname){ this.lastname=lastname;}
+
+  public String  getMstatus(){ return mstatus;}
+
+  public  void setMstatus(String status){ this.mstatus=mstatus;}
+
+  public String  getBloodGroup(){ return bloodGroup;}
+
+  public  void setBloodGroup(String bloodGroup){ this.bloodGroup=bloodGroup;}
+
 
   public Set<String> getRole() {
     return this.role;
