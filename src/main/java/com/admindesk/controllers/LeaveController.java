@@ -39,6 +39,17 @@ public ResponseEntity<List<LeaveModel>> getAllLeave(){
     @GetMapping("/leave-list")
     public List<LeaveModel>getallLeave(){
       return leaveRepository.findAll();}
+    
+    
+    @PostMapping("/rejectLeave/{id}")
+    public ResponseEntity<String> rejectLeave(@PathVariable("id") long id){
+    	System.out.println("Called");
+    	LeaveModel leaveModel = leaveRepository.findById(id).get();
+    	
+    	leaveRepository.delete(leaveModel);
+    	return ResponseEntity.ok("Leave Rejected Successfully");
+    }
+
 
 }
 

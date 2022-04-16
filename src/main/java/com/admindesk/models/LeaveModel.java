@@ -3,6 +3,9 @@ package com.admindesk.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +46,15 @@ public class LeaveModel {
   this.discription=discription;
  }
 
+
+ public Long getId() {
+   return id;
+ }
+
+ public void setId(Long id) {
+   this.id = id;
+ }
+ 
  public String getEmployeeId() {
   return employeeId;
  }
@@ -92,6 +104,7 @@ public class LeaveModel {
 
  @ManyToOne(cascade = CascadeType.ALL,optional = false)
  @JoinColumn(name="user_id", nullable = false)
+ @JsonIgnore
  private User user;
 
  public User getUser() {

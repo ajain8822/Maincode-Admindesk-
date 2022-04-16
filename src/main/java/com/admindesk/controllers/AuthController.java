@@ -8,18 +8,21 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import com.admindesk.models.ERole;
+import com.admindesk.models.LeaveModel;
 import com.admindesk.models.Role;
 import com.admindesk.models.User;
 import com.admindesk.payload.request.LoginRequest;
 import com.admindesk.payload.request.SignupRequest;
 import com.admindesk.payload.response.JwtResponse;
 import com.admindesk.payload.response.MessageResponse;
+import com.admindesk.repository.LeaveRepository;
 import com.admindesk.repository.RoleRepository;
 import com.admindesk.repository.UserRepository;
 import com.admindesk.security.jwt.JwtUtils;
 import com.admindesk.security.services.UserDetailsImpl;
 import com.admindesk.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -51,6 +54,8 @@ public class AuthController {
   @Autowired
   UserDetailsServiceImpl userDetailsService;
 
+  @Autowired
+  LeaveRepository leaveRepository;
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -142,6 +147,13 @@ public class AuthController {
   return ResponseEntity.ok(employee);
 
  }
+ 
+ 
+ @GetMapping("/show-leaves")
+ public List<LeaveModel> leaveList(){
+	 return leaveRepository.findAll();
+ }
+ 
  @PostMapping("/delete-user/{id}")
   public ResponseEntity<User> deleteEmployee(@PathVariable long id ) {
    User employee = userRepository.findById(id).get();
@@ -149,6 +161,19 @@ public class AuthController {
    return ResponseEntity.ok(employee);
  }
 
+ @PostMapping("/change-status/{id}")
+ public ResponseEntity<String> changeStatus(@PathVariable long id){
+	 LeaveModel leave = leaveRepository.findById(id).get();
+	 if(leave.getStatus().equals("Not Approved")) {
+		 leave.setStatus("Approved");
+	 }
+	 else {
+		 leave.setStatus("Not Approved");
+	 }
+	 
+	leaveRepository.save(leave); 
+	 return new ResponseEntity<String>("Status Changed", HttpStatus.OK);
+ }
  }
 
 
